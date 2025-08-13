@@ -1,0 +1,27 @@
+Python-->
+class Solution:
+    def countZeroes(self, A, N):
+        count = 0
+        row, col = 0, N - 1
+        while row < N and col >= 0:
+            if A[row][col] == 0:
+                count += col + 1
+                row += 1
+            else:
+                col -= 1
+        return count
+
+C-->
+int countZeroes(int N, int A[N][N]) {
+    int count = 0;
+    int row = 0, col = N - 1;
+    while (row < N && col >= 0) {
+        if (A[row][col] == 0) {
+            count += col + 1;
+            row++;
+        } else {
+            col--;
+        }
+    }
+    return count;
+}
