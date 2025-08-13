@@ -1,0 +1,17 @@
+Python-->
+from typing import List
+class Solution:
+    def sumDiagonal(self, N: int, M: List[List[int]]) -> int:
+        s = 0
+        for i in range(N):
+            s += M[i][i]
+        return s
+
+
+c-->
+int sumDiagonal(int N, int M[N][N]) {
+    int s = 0;
+    for (int i = 0; i < N; i++)
+        s += M[i][i];
+    return s;
+}
