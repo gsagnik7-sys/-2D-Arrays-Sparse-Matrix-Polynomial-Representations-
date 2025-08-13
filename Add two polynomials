@@ -1,0 +1,46 @@
+Python-->
+class Solution:
+    def addPolynomial(self, poly1, poly2):
+        res = {}
+        for coeff, power in poly1:
+            res[power] = res.get(power, 0)+ coeff
+        for coeff, power in poly2:
+            res[power] = res.get(power, 0) + coeff
+        return sorted([(c, p) for p, c in res.items() if c != 0], key=lambda x: -x[1])
+
+
+C-->
+#include <stdio.h>
+void addPolynomial(int n1, int poly1[][2], int n2, int poly2[][2], int res[][2], int *resSize) {
+    int i = 0, j = 0, k = 0;
+    while (i < n1 && j < n2) {
+        if (poly1[i][1] > poly2[j][1]) {
+            res[k][0] = poly1[i][0];
+            res[k][1] = poly1[i][1];
+            i++;
+        } else if (poly1[i][1] < poly2[j][1]) {
+            res[k][0] = poly2[j][0];
+            res[k][1] = poly2[j][1];
+            j++;
+        } else {
+            res[k][0] = poly1[i][0] + poly2[j][0];
+            res[k][1] = poly1[i][1];
+            i++;
+            j++;
+        }
+        k++;
+    }
+    while (i < n1) {
+        res[k][0] = poly1[i][0];
+        res[k][1] = poly1[i][1];
+        i++;
+        k++;
+    }
+    while (j < n2) {
+        res[k][0] = poly2[j][0];
+        res[k][1] = poly2[j][1];
+        j++;
+        k++;
+    }
+    *resSize = k;
+}
