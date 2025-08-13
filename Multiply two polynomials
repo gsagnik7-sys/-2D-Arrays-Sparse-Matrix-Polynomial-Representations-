@@ -1,0 +1,41 @@
+Python-->
+class Solution:
+    def multiplyPolynomial(self, poly1, poly2):
+        res = {}
+        for c1, p1 in poly1:
+            for c2, p2 in poly2:
+                res[p1 + p2] = res.get(p1 + p2, 0) + c1 * c2
+        return sorted([(c, p) for p, c in res.items() if c != 0], key=lambda x: -x[1])
+
+
+C-->
+#include <stdio.h>
+void multiplyPolynomial(int n1, int poly1[][2], int n2, int poly2[][2], int res[][2], int *resSize) {
+    int temp[100][2] = {0};
+    int usedPowers[100] = {0};
+    int count = 0; 
+    for (int i = 0; i < n1; i++) {
+        for (int j = 0; j < n2; j++) {
+            int power = poly1[i][1] + poly2[j][1];
+            int coeff = poly1[i][0] * poly2[j][0];
+            int found = 0;
+            for (int k = 0; k < count; k++) {
+                if (temp[k][1] == power) {
+                    temp[k][0] += coeff;
+                    found = 1;
+                    break;
+                }
+            }
+            if (!found) {
+                temp[count][0] = coeff;
+                temp[count][1] = power;
+                count++;
+            }
+        }
+    }
+    for (int i = 0; i < count; i++) {
+        res[i][0] = temp[i][0];
+        res[i][1] = temp[i][1];
+    }
+    *resSize = count;
+}
